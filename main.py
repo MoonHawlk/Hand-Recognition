@@ -26,7 +26,6 @@ def detect_gesture(hand_landmarks):
 
     # Detect hand gestures
     if thumb_palm_distance > thumb_palm_open_threshold:
-        # Thumb is extended away from the palm
         return "open_hand"
 
     elif all(landmarks[i][1] > middle_tip[1] for i in range(4)):
@@ -36,10 +35,6 @@ def detect_gesture(hand_landmarks):
     elif thumb_tip[1] < middle_tip[1] and thumb_tip[1] < index_tip[1]:
         # Thumbs-up gesture (thumb is lower than both middle and index fingers)
         return "thumbs_up"
-
-    # You can add more conditions to detect other gestures here
-    # elif <condition>:
-    #    return "<gesture_name>"
 
     else:
         # Gesture not recognized
@@ -60,8 +55,7 @@ def main():
             for hand_landmarks in results.multi_hand_landmarks:
                 # Get gesture from hand landmarks
                 gesture = detect_gesture(hand_landmarks)
-
-                # Perform action based on the detected gesture
+                
                 if gesture == "open_hand":
                     print('Mão aberta')
                 elif gesture == "closed_hand":
